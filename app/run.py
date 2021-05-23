@@ -38,31 +38,77 @@ model = joblib.load("../models/classifier.pkl")
 def index():
 
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    genre_graph = {
+        'data': [
+            Bar(
+                x=genre_names,
+                y=genre_counts
+            )
+        ],
 
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
-    graphs = [
-        {
-            'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
-                )
-            ],
-
-            'layout': {
-                'title': 'Distribution of Message Genres',
-                'yaxis': {
-                    'title': "Count"
-                },
-                'xaxis': {
-                    'title': "Genre"
-                }
+        'layout': {
+            'title': 'Distribution of Message Genres',
+            'yaxis': {
+                'title': "Count"
+            },
+            'xaxis': {
+                'title': "Genre"
             }
         }
+    }
+
+    category_counts = df[df.columns.difference(
+        ['id', 'message', 'original', 'genre'])].sum()
+    category_names = list(category_counts.index)
+    category_graph = {
+        'data': [
+            Bar(
+                x=category_names,
+                y=category_counts
+            )
+        ],
+
+        'layout': {
+            'title': 'Distribution of Message Categories',
+            'yaxis': {
+                'title': "Count"
+            },
+            'xaxis': {
+                'title': "Category"
+            }
+        }
+    }
+
+    translated = df[['message', 'original']].count()
+    translated.message = translated.message - translated.original
+    translated.index = ['English', 'Other']
+    translated_names = list(translated.index)
+    language_graph = {
+        'data': [
+            Bar(
+                x=translated_names,
+                y=translated
+            )
+        ],
+
+        'layout': {
+            'title': 'Distribution of translated Messages',
+            'yaxis': {
+                'title': "Count"
+            },
+            'xaxis': {
+                'title': "Language"
+            }
+        }
+    }
+
+    # create visuals
+    graphs = [
+        genre_graph,
+        category_graph,
+        language_graph
     ]
 
     # encode plotly graphs in JSON
