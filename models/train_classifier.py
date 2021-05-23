@@ -51,6 +51,7 @@ def tokenize(text):
 
 
 def build_model():
+    '''creates a pipeline model for classification of messages'''
     # create classifiers and transformers
     clf = MultiOutputClassifier(RandomForestClassifier())
     estimators = [('vect', CountVectorizer(tokenizer=tokenize)),
@@ -62,6 +63,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''prints model metrics for all categories'''
     # predict on test data
     y_pred = model.predict(X_test)
     # convert to dataframes with category names as columns
@@ -75,6 +77,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''saves the model as a pickle file'''
     # pickle model
     joblib.dump(model, model_filepath)
 
