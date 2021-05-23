@@ -1,5 +1,9 @@
 # Disaster Response Pipeline Project
 
+## Summary
+
+Example project showcasing the use of an ETL-pipeline, training a NLP model and integrating the result into a web app.
+
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
 
