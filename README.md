@@ -45,3 +45,10 @@ Disaster response organizations often get thousands of messages following natura
     * `process_data.py`: reads in trainingdata, cleans, removes duplicates and stores in database
 * `models`
     * `train_classifier.py`: reads cleaned data from databse and fits an NLP pipeline onto training data generating a pickled model to use in the web app
+
+## Acknowledgments
+
+
+[Udacity Data Scientist Nanodegree](https://www.udacity.com/course/data-scientist-nanodegree--nd025): providing template files for the project
+
+[Figure Eight](https://www.figure-eight.com/): providing labled disaster messages
