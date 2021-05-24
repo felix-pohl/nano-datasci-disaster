@@ -12,12 +12,13 @@ Disaster response organizations often get thousands of messages following natura
 
  * Clone repo
  * Install dependencies using your favored package installer
+    * flask
+    * joblib
+    * nltk
     * numpy
     * pandas
+    * plotly
     * sklearn
-    * flask
-    * nltk
-    * joblib
     * sqlalchemy
 
 ### Instructions:
