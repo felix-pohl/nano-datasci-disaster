@@ -8,7 +8,7 @@ from nltk.tokenize import word_tokenize
 from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
 from sqlalchemy import create_engine
@@ -59,7 +59,17 @@ def build_model():
                   ('clf', clf)]
     # build pipeline
     pipeline = Pipeline(estimators)
-    return pipeline
+    # possible parameters to optimize
+    param_grid = {
+        'vect__max_df': [0.5, 1.0],
+        'tfidf__use_idf': [True, False],
+        'tfidf__norm': ('l1', 'l2')
+    }
+    # find optimal parameters with gridSearchCV
+    optimized_pipeline = GridSearchCV(
+        pipeline, param_grid, verbose=3, n_jobs=-1
+    )
+    return optimized_pipeline
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
