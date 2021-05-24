@@ -28,7 +28,9 @@ def clean_data(df):
     for column in categories:
         # set each value to be the last character of the string
         categories[column] = categories[column].astype(str).str[-1]
-
+        # convert values to binary
+        categories[column] = categories[column].astype(
+            str).replace('[2-9]', '1', regex=True)
         # convert column from string to numeric
         categories[column] = pd.to_numeric(categories[column])
     # remove unnecessary categories column
@@ -43,7 +45,7 @@ def clean_data(df):
 def save_data(df, database_filename):
     '''save df into provided database in table 'messages' '''
     engine = create_engine('sqlite:///{}'.format(database_filename))
-    df.to_sql('messages', engine, index=False)
+    df.to_sql('messages', engine, index=False, if_exists='replace')
 
 
 def main():
